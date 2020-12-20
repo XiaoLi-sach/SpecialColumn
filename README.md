@@ -22,3 +22,15 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+```
+npm install vue-router@next --save
+```
+
+```
+npm install vuex@next --save
+```
+
+```
+npm install axios --save
+```
