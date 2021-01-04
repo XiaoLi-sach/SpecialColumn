@@ -54,6 +54,7 @@ export default defineComponent({
     ]
     const onFormSubmit = (result: boolean) => {
       if (result) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { column, _id } = store.state.user
         if (column) {
           const newPost: PostProps = {

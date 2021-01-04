@@ -3,9 +3,10 @@ import { createStore, Commit } from 'vuex'
 
 export interface UserProps {
   isLogin: boolean;
-  name?: string;
+  nickName?: string;
   _id?: string;
   column?: string;
+  email?: string;
 }
 export interface ImageProps {
   _id?: string;
@@ -27,7 +28,12 @@ export interface PostProps {
   createdAt: string;
   column: string;
 }
+export interface GlobalErrorProps {
+  status: boolean;
+  message?: string;
+}
 export interface GlobalDataProps {
+  error: GlobalErrorProps;
   token: string;
   loading: boolean;
   columns: ColumnProps[];
@@ -45,7 +51,8 @@ const PostAndCommit = async (url: string, mutationName: string, commit: Commit, 
 }
 const store = createStore<GlobalDataProps>({
   state: {
-    token: '',
+    error: { status: false },
+    token: localStorage.getItem('token') || '',
     loading: false,
     columns: [],
     posts: [],
@@ -70,8 +77,17 @@ const store = createStore<GlobalDataProps>({
     setLoading (state, status) {
       state.loading = status
     },
+    setError (state, e: GlobalErrorProps) {
+      state.error = e
+    },
+    fetchCurrentUser (state, rawData) {
+      state.user = { isLogin: true, ...rawData.data }
+    },
     login (state, rawData) {
-      state.token = rawData.data.token
+      const { token } = rawData.data
+      state.token = token
+      localStorage.setItem('token', token)
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`
     }
   },
   actions: {
@@ -84,8 +100,16 @@ const store = createStore<GlobalDataProps>({
     fetchPosts ({ commit }, cid) {
       getAndCommit(`/columns/${cid}/posts`, 'fetchPosts', commit)
     },
+    fetchCurrentUser ({ commit }) {
+      getAndCommit('/user/current', 'fetchCurrentUser', commit)
+    },
     login ({ commit }, payload) {
       return PostAndCommit('/user/login', 'login', commit, payload)
+    },
+    loginAndFetch ({ dispatch }, loginData) {
+      return dispatch('login', loginData).then(() => {
+        return dispatch('fetchCurrentUser')
+      })
     }
   },
   getters: {
