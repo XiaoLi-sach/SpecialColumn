@@ -1,21 +1,18 @@
 # 鱼香肉丝专栏
+采用 Vue3.0 + TS + BootStrap 编写 <br />
+后端由慕课提供
 
-## Project setup
-```
+## 开始运行
+
 npm install
-```
 
-### 以下为使用的工具
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<br />
 
-```
-npm install vue-router@next --save
-```
+###个人网站： XiaoLi1456.com  我的笔记:  [link]()
 
-```
-npm install vuex@next --save
-```
 
-```
-npm install axios --save
-```
+---------------------------
+注： 仅供个人学习，跟随张轩老师实战项目
+项目地址：https://coding.imooc.com/class/449.html
+
+
