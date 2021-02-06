@@ -65,14 +65,17 @@ const asyncAndCommit = async (url: string, mutationName: string,
 }
 const store = createStore<GlobalDataProps>({
   state: {
-    error: { status: false },
     token: localStorage.getItem('token') || '',
+    error: { status: false },
     loading: false,
     columns: { data: {}, currentPage: 0, total: 0 },
     posts: { data: {}, loadedColumns: [] },
     user: { isLogin: false }
   },
   mutations: {
+    // login(state) {
+    //   state.user = { ...state.user, isLogin: true, name: 'viking' }
+    // },
     createPost (state, newPost) {
       state.posts.data[newPost._id] = newPost
     },
@@ -98,7 +101,7 @@ const store = createStore<GlobalDataProps>({
     deletePost (state, { data }) {
       delete state.posts.data[data._id]
     },
-    updataPost (state, { data }) {
+    updatePost (state, { data }) {
       state.posts.data[data._id] = data
     },
     setLoading (state, status) {
@@ -119,13 +122,16 @@ const store = createStore<GlobalDataProps>({
     logout (state) {
       state.token = ''
       state.user = { isLogin: false }
-      localStorage.remove('token')
+      localStorage.removeItem('token')
       delete axios.defaults.headers.common.Authorization
     }
   },
   actions: {
     fetchColumns ({ state, commit }, params = {}) {
       const { currentPage = 1, pageSize = 6 } = params
+      // if (!state.columns.isLoaded) {
+      //   return asyncAndCommit('/columns', 'fetchColumns', commit)
+      // }
       if (state.columns.currentPage < currentPage) {
         return asyncAndCommit(`/columns?currentPage=${currentPage}&pageSize=${pageSize}`, 'fetchColumns', commit)
       }
@@ -144,9 +150,11 @@ const store = createStore<GlobalDataProps>({
       const currentPost = state.posts.data[id]
       if (!currentPost || !currentPost.content) {
         return asyncAndCommit(`/posts/${id}`, 'fetchPost', commit)
+      } else {
+        return Promise.resolve({ data: currentPost })
       }
     },
-    updataPost ({ commit }, { id, payload }) {
+    updatePost ({ commit }, { id, payload }) {
       return asyncAndCommit(`/posts/${id}`, 'updatePost', commit, {
         method: 'patch',
         data: payload
