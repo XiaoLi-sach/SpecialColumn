@@ -7,29 +7,28 @@
       @blur="validateInput"
       v-model="inputRef.val"
       v-bind="$attrs"
-     />
-     <textarea
+    >
+    <textarea
       v-else
       class="form-control"
       :class="{'is-invalid': inputRef.error}"
       @blur="validateInput"
       v-model="inputRef.val"
       v-bind="$attrs"
-     >
-     </textarea>
-     <span v-if="inputRef.error" class="invalid-feedback">{{inputRef.message}}</span>
+    >
+    </textarea>
+    <span v-if="inputRef.error" class="invalid-feedback">{{inputRef.message}}</span>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, PropType, onMounted, computed } from 'vue'
 import { emitter } from './ValidateForm.vue'
-
-const emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+const emailReg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 interface RuleProp {
-    type: 'required' | 'email' | 'custom';
-    message: string;
-    validator?: () => boolean;
+  type: 'required' | 'email' | 'custom';
+  message: string;
+  validator?: () => boolean;
 }
 export type RulesProp = RuleProp[]
 export type TagType = 'input' | 'textarea'
@@ -48,7 +47,7 @@ export default defineComponent({
       val: computed({
         get: () => props.modelValue || '',
         set: val => {
-          context.emit('update: modelValue', val)
+          context.emit('update:modelValue', val)
         }
       }),
       error: false,
@@ -89,6 +88,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style>
-</style>

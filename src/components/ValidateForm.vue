@@ -2,9 +2,9 @@
   <form class="validate-form-container">
     <slot name="default"></slot>
     <div class="submit-area" @click.prevent="submitForm">
-        <slot name="submit">
-            <button type="submit" class="btn btn-primary">登录</button>
-        </slot>
+      <slot name="submit">
+        <button type="submit" class="btn btn-primary">提交</button>
+      </slot>
     </div>
   </form>
 </template>
@@ -22,8 +22,10 @@ export default defineComponent({
       const result = funcArr.map(func => func()).every(result => result)
       context.emit('form-submit', result)
     }
-    const callback = (func: any) => {
-      funcArr.push(func)
+    const callback = (func?: ValidateFunc) => {
+      if (func) {
+        funcArr.push(func)
+      }
     }
     emitter.on('form-item-created', callback)
     onUnmounted(() => {
@@ -36,7 +38,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style>
-
-</style>

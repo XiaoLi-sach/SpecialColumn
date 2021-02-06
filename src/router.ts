@@ -1,13 +1,13 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
+import axios from 'axios'
 import Home from './views/Home.vue'
 import Login from './views/Login.vue'
+import Signup from './views/Signup.vue'
 import ColumnDetail from './views/ColumnDetail.vue'
 import CreatePost from './views/CreatePost.vue'
+import PostDetail from './views/PostDetail.vue'
 import store from './store'
-import Signup from '@/views/Signup.vue'
-import axios from 'axios'
-
-const routerHistory = createWebHashHistory()
+const routerHistory = createWebHistory()
 const router = createRouter({
   history: routerHistory,
   routes: [
@@ -38,19 +38,15 @@ const router = createRouter({
       path: '/column/:id',
       name: 'column',
       component: ColumnDetail
+    },
+    {
+      path: '/posts/:id',
+      name: 'post',
+      component: PostDetail
     }
   ]
 })
-
 router.beforeEach((to, from, next) => {
-  // console.log(to.meta)
-  // if (to.meta.requiredLogin && !store.state.user.isLogin) {
-  //   next({ name: 'login' })
-  // } else if (to.meta.redirectAlreadyLogin && store.state.user.isLogin) {
-  //   next('/')
-  // } else {
-  //   next()
-  // }
   const { user, token } = store.state
   const { requiredLogin, redirectAlreadyLogin } = to.meta
   if (!user.isLogin) {
