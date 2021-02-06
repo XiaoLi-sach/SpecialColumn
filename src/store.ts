@@ -101,12 +101,12 @@ const store = createStore<GlobalDataProps>({
     updatePost (state, { data }) {
       state.posts.data[data._id] = data
     },
-    // setLoading (state, status) {
-    //   state.loading = status
-    // },
-    // setError (state, e: GlobalErrorProps) {
-    //   state.error = e
-    // },
+    setLoading (state, status) {
+      state.loading = status
+    },
+    setError (state, e: GlobalErrorProps) {
+      state.error = e
+    },
     fetchCurrentUser (state, rawData) {
       state.user = { isLogin: true, ...rawData.data }
     },
@@ -115,13 +115,13 @@ const store = createStore<GlobalDataProps>({
       state.token = token
       localStorage.setItem('token', token)
       axios.defaults.headers.common.Authorization = `Bearer ${token}`
+    },
+    logout (state) {
+      state.token = ''
+      state.user = { isLogin: false }
+      localStorage.removeItem('token')
+      delete axios.defaults.headers.common.Authorization
     }
-    // logout (state) {
-    //   state.token = ''
-    //   state.user = { isLogin: false }
-    //   localStorage.removeItem('token')
-    //   delete axios.defaults.headers.common.Authorization
-    // }
   },
   actions: {
     fetchColumns ({ state, commit }, params = {}) {
@@ -165,12 +165,12 @@ const store = createStore<GlobalDataProps>({
     },
     deletePost ({ commit }, id) {
       return asyncAndCommit(`/posts/${id}`, 'deletePost', commit, { method: 'delete' })
+    },
+    loginAndFetch ({ dispatch }, loginData) {
+      return dispatch('login', loginData).then(() => {
+        return dispatch('fetchCurrentUser')
+      })
     }
-    // loginAndFetch ({ dispatch }, loginData) {
-    //   return dispatch('login', loginData).then(() => {
-    //     return dispatch('fetchCurrentUser')
-    //   })
-    // }
   },
   getters: {
     getColumns: (state) => {
