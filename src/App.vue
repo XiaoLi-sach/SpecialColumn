@@ -18,13 +18,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted, watch } from 'vue'
+import { defineComponent, computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import GlobalHeader from './components/GlobalHeader.vue'
 import Loader from './components/Loader.vue'
 import { GlobalDataProps } from './store'
-import axios from 'axios'
 import createMessage from '@/components/createMessage'
 
 export default defineComponent({
