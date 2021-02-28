@@ -6,11 +6,11 @@ import App from './App.vue'
 
 axios.defaults.baseURL = 'http://apis.imooc.com/api/'
 axios.interceptors.request.use(config => {
-  config.params = { ...config.params, icode: 'BA7295A2D96038B3' }
+  config.params = { ...config.params, icode: '39AAC8BEC555A23F' }
   if (config.data instanceof FormData) {
-    config.data.append('icode', 'BA7295A2D96038B3')
+    config.data.append('icode', '39AAC8BEC555A23F')
   } else {
-    config.data = { ...config.data, icode: 'BA7295A2D96038B3' }
+    config.data = { ...config.data, icode: '39AAC8BEC555A23F' }
   }
   return config
 })
