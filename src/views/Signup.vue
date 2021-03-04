@@ -8,6 +8,7 @@
           :rules="emailRules" v-model="formData.email"
           placeholder="请输入邮箱地址"
           type="text"
+          name="UserEmail"
         />
       </div>
       <div class="mb-3">
@@ -16,6 +17,7 @@
           :rules="nameRules" v-model="formData.nickName"
           placeholder="请输入昵称"
           type="text"
+          name="UserName"
         />
       </div>
       <div class="mb-3">
@@ -25,6 +27,7 @@
           placeholder="请输入密码"
           :rules="passwordRules"
           v-model="formData.password"
+          name="UserPwd"
         />
       </div>
       <div class="mb-3">

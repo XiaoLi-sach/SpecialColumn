@@ -9,6 +9,7 @@
           placeholder="请输入邮箱地址"
           type="text"
           ref="inputRef"
+          name="UserEmail"
         />
       </div>
       <div class="mb-3">
@@ -18,6 +19,7 @@
           placeholder="请输入密码"
           :rules="passwordRules"
           v-model="passwordVal"
+          name="UserPwd"
         />
       </div>
       <template #submit>
