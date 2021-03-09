@@ -38,6 +38,9 @@
           :rules="repeatPasswordRules"
           v-model="formData.repeatPassword"
         />
+        <div class="form-text">
+          <router-link to="/login">已经有账户了？去登录</router-link>
+        </div>
       </div>
       <template #submit>
         <button type="submit" class="btn btn-primary">注册新用户</button>
@@ -88,16 +91,16 @@ export default defineComponent({
         message: '密码不相同'
       }
     ]
-
-    const onFormSubmit = async (result: boolean) => {
+    const onFormSubmit = (result: boolean) => {
       if (result) {
         const payload = {
           email: formData.email,
           password: formData.password,
-          nickName: formData.nickName
+          username: formData.nickName
         }
         axios.post('/users/', payload).then(data => {
-          createMessage('注册成功，正在跳转登录页面', 'success')
+          console.log(payload)
+          createMessage('注册成功 正在跳转登录页面', 'success')
           setTimeout(() => {
             router.push('/login')
           }, 2000)
