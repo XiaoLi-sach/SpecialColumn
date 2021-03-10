@@ -98,6 +98,9 @@ const store = createStore<GlobalDataProps>({
     deletePost (state, { data }) {
       delete state.posts.data[data._id]
     },
+    updateColumn (state, { data }) {
+      state.columns.data[data._id] = data
+    },
     updatePost (state, { data }) {
       state.posts.data[data._id] = data
     },
@@ -115,6 +118,9 @@ const store = createStore<GlobalDataProps>({
       state.token = token
       localStorage.setItem('token', token)
       axios.defaults.headers.common.Authorization = `Bearer ${token}`
+    },
+    updateUser (state, { data }) {
+      state.user = { isLogin: true, ...data }
     },
     logout (state) {
       state.token = ''
@@ -165,6 +171,12 @@ const store = createStore<GlobalDataProps>({
     },
     deletePost ({ commit }, id) {
       return asyncAndCommit(`/posts/${id}`, 'deletePost', commit, { method: 'delete' })
+    },
+    updateColumn ({ commit }, { id, paylaod }) {
+      return asyncAndCommit(`/columns/${id}`, 'updateColumn', commit, { method: 'patch', data: paylaod })
+    },
+    updateUser ({ commit }, { id, payload }) {
+      return asyncAndCommit(`/user/${id}`, 'updateUser', commit, { method: 'patch', data: payload })
     },
     loginAndFetch ({ dispatch }, loginData) {
       return dispatch('login', loginData).then(() => {

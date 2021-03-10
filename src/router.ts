@@ -48,7 +48,8 @@ const router = createRouter({
     {
       path: '/editprofile',
       name: 'editprofile',
-      component: EditProfile
+      component: EditProfile,
+      meta: { requiredLogin: true }
     }
   ]
 })

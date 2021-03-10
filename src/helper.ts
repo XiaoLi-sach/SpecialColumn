@@ -1,3 +1,4 @@
+import createMessage from './components/createMessage'
 import { ColumnProps, ImageProps, UserProps } from './store'
 
 export function generateFitUrl (data: ImageProps, width: number, height: number, format = ['m_pad']) {
@@ -40,6 +41,17 @@ export function beforeUploadCheck (file: File, condition: CheckCondition) {
     passed: isValidFormat && isValidSize,
     error
   }
+}
+export const commonUploadCheck = (file: File) => {
+  const result = beforeUploadCheck(file, { format: ['image/jpeg', 'image/png'], size: 1 })
+  const { passed, error } = result
+  if (error === 'format') {
+    createMessage('上传格式只能是jpg/png', 'error')
+  }
+  if (error === 'size') {
+    createMessage('上传大小不能超过2mb', 'error')
+  }
+  return passed
 }
 export const arrToObj = <T extends { _id?: string }>(arr: Array<T>) => {
   return arr.reduce((prev, current) => {
