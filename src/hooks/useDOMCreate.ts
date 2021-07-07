@@ -1,3 +1,4 @@
+// 去掉 message 和leader 里的 node 重复操作
 import { onUnmounted } from 'vue'
 
 function useDOMCreate (nodeId: string) {

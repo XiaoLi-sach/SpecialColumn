@@ -1,3 +1,4 @@
+// 下拉菜单
 <template>
   <div class="dropdown" ref="dropdownRef">
     <a href="#" class="btn btn-outline-light my-2 dropdown-toggle" @click.prevent="toggleOpen">
@@ -13,6 +14,7 @@
 // watch 监控响应式变化
 import { defineComponent, ref, watch } from 'vue'
 import useClickOutside from '../hooks/useClickOutside'
+
 export default defineComponent({
   name: 'Dropdown',
   props: {
@@ -27,8 +29,10 @@ export default defineComponent({
     const toggleOpen = () => {
       isOpen.value = !isOpen.value
     }
+    // 点击的一些操作
     const isClickOutside = useClickOutside(dropdownRef)
 
+    // 只执行一次， 所以需要检测变化
     watch(isClickOutside, () => {
       if (isOpen.value && isClickOutside.value) {
         isOpen.value = false

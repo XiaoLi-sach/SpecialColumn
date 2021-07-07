@@ -1,6 +1,6 @@
 <template>
   <div class="create-post-page">
-    <h4>{{isEditMode ? '编辑文章' : '新建文章'}}</h4>
+    <h4 class="title">{{isEditMode ? '编辑文章' : '新建文章'}}</h4>
     <uploader
       action="/upload"
       :beforeUpload="commonUploadCheck"
@@ -44,18 +44,18 @@
         />
       </div>
       <template #submit>
-        <button class="btn btn-primary btn-large">{{isEditMode ? '更新文章' : '发表文章'}}
-        </button>
+        <button class="btn btn-primary btn-large">{{isEditMode ? '更新文章' : '发表文章'}}</button>
+      <router-link to='/' class="link-danger" style="font-size: 14px">放弃发表</router-link>
       </template>
     </validate-form>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
-import { useRouter, useRoute } from 'vue-router'
-import { GlobalDataProps, PostProps, ResponseType, ImageProps } from '@/store'
+import { useRoute, useRouter } from 'vue-router'
+import { DataProps, ImageProps, PostProps, ResponseType } from '@/store'
 import ValidateInput, { RulesProp } from '../components/ValidateInput.vue'
 import ValidateForm from '../components/ValidateForm.vue'
 import Uploader from '../components/Uploader.vue'
@@ -75,7 +75,7 @@ export default defineComponent({
     const router = useRouter()
     const route = useRoute()
     const isEditMode = !!route.query.id
-    const store = useStore<GlobalDataProps>()
+    const store = useStore<DataProps>()
     let imageId = ''
     const titleRules: RulesProp = [
       { type: 'required', message: '文章标题不能为空' }
@@ -162,5 +162,8 @@ export default defineComponent({
   text-align: center;
   width: 100%;
   top: 50%;
+}
+.title {
+ font-size: 40px;
 }
 </style>

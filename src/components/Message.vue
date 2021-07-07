@@ -1,12 +1,13 @@
+// 消息弹框
 <template>
-  <teleport to="#message">
+  <teleport to="#message"> // teleport 可以控制HTML片段指定在某一父节点下呈现/渲染
     <div class="alert message-info fixed-top w-50 mx-auto d-flex justify-content-between mt-2"
     :class="classObject"
     v-if="isVisible"
     >
         <span>{{message}}</span>
         <button type="button" class="btn-close" aria-label="Close" @click.prevent="hide">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true"></span>
         </button>
     </div>
   </teleport>

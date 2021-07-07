@@ -1,3 +1,4 @@
+// 文章展示
 <template>
   <div class="post-list">
     <article v-for="post in posts" :key="post._id" class="card mb-3 shadow-sm">
@@ -16,9 +17,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
-import { PostProps, ImageProps } from '@/store'
+import { computed, defineComponent, PropType } from 'vue'
+import { ImageProps, PostProps } from '@/store'
 import { generateFitUrl } from '@/helper'
+
 export default defineComponent({
   props: {
     list: {

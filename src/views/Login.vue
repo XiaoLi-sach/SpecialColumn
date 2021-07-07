@@ -42,9 +42,10 @@ export default defineComponent({
     ValidateForm
   },
   setup () {
-    const emailVal = ref('')
     const router = useRouter()
     const store = useStore()
+
+    const emailVal = ref('')
     const emailRules: RulesProp = [
       { type: 'required', message: '电子邮箱地址不能为空' },
       { type: 'email', message: '电子邮箱地址错误' }
@@ -59,7 +60,7 @@ export default defineComponent({
           email: emailVal.value,
           password: passwordVal.value
         }
-        store.dispatch('loginAndFetch', payload).then(data => {
+        store.dispatch('loginAndFetch', payload).then(() => {
           createMessage('登录成功两秒后跳转至首页', 'success')
           setTimeout(() => {
             router.push('/')
@@ -81,5 +82,7 @@ export default defineComponent({
 </script>
 
 <style>
-
+.btn-primary {
+  width:100%;
+}
 </style>

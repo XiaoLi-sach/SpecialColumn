@@ -1,3 +1,4 @@
+// 专栏具体信息
 <template>
   <div class="column-detail-page w-75 mx-auto">
     <div class="column-info row mb-4 border-bottom pb-4 align-items-center" v-if="column">
@@ -14,19 +15,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted } from 'vue'
+import { computed, defineComponent, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
-import { GlobalDataProps, ColumnProps } from '@/store'
+import { ColumnProps, DataProps } from '@/store'
 import PostList from '../components/PostList.vue'
 import { addColumnAvatar } from '@/helper'
+
 export default defineComponent({
   components: {
     PostList
   },
   setup () {
     const route = useRoute()
-    const store = useStore<GlobalDataProps>()
+    const store = useStore<DataProps>()
     const currentId = route.params.id
     onMounted(() => {
       store.dispatch('fetchColumn', currentId)

@@ -125,4 +125,7 @@ export default defineComponent({
 .w-330 {
   max-width: 330px;
 }
+.btn-primary {
+  width: 100%;
+}
 </style>

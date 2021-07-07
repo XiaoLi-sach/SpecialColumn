@@ -1,3 +1,4 @@
+// 首页专栏展示
 <template>
   <div class="row">
     <div v-for="column in columnList" :key="column._id" class="col-4 mb-4">
@@ -13,7 +14,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 import { ColumnProps } from '@/store'
 import { addColumnAvatar } from '@/helper'
 

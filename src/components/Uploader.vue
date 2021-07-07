@@ -1,3 +1,4 @@
+// 上传
 <template>
   <div class="file-upload">
     <div class="file-upload-container" @click.prevent="triggerUpload" v-bind="$attrs">
@@ -20,8 +21,9 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, PropType, watch } from 'vue'
+import { defineComponent, PropType, ref, watch } from 'vue'
 import axios from 'axios'
+
 type UploadStatus = 'ready' | 'loading' | 'success' | 'error'
 type CheckFunction = (file: File) => boolean;
 export default defineComponent({

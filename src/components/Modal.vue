@@ -1,3 +1,4 @@
+// 确认框
 <template>
   <teleport to="#modal">
     <div class="modal d-block" tabindex="-1" v-if="visible">
@@ -25,6 +26,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import useDOMCreate from '@/hooks/useDOMCreate'
+
 export default defineComponent({
   name: 'Modal',
   props: {

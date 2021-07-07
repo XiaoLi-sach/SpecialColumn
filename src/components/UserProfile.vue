@@ -1,3 +1,4 @@
+// 更新资料
 <template>
   <div class="user-profile-component">
     <div class="d-flex align-items-center">
@@ -11,9 +12,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 import { UserProps } from '@/store'
 import { addColumnAvatar } from '@/helper'
+
 export default defineComponent({
   props: {
     user: {

@@ -8,28 +8,27 @@
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <img src="../assets/callout.svg" alt="callout" class="w-50"/>
-                <h2 class="font-weight-light">自由表达</h2>
                 <p>
-                    <a href="#" class="btn btn-primary my-2">开始写作</a>
+                    <router-link to="create" class="btn btn-primary my-2">开始写作</router-link>
                 </p>
             </div>
         </div>
+      <h4 class="font-weight-bold text-center">发现精彩</h4>
+      <column-list :list="list"></column-list>
+      <button
+        class="btn btn-outline-primary mt-2 mb-5 btn-block w-25"
+        @click="loadMorePage" v-if="!isLastPage"
+      >
+        加载更多
+      </button>
     </section>
-    <h4 class="font-weight-bold text-center">发现精彩</h4>
-    <column-list :list="list"></column-list>
-    <button
-      class="btn btn-outline-primary mt-2 mb-5 btn-block w-25"
-      @click="loadMorePage" v-if="!isLastPage"
-    >
-      加载更多
-    </button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted } from 'vue'
+import { computed, defineComponent, onMounted } from 'vue'
 import { useStore } from 'vuex'
-import { GlobalDataProps } from '@/store'
+import { DataProps } from '@/store'
 import useLoadMore from '@/hooks/useLoadMore'
 import ColumnList from '../components/ColumnList.vue'
 
@@ -39,7 +38,7 @@ export default defineComponent({
     ColumnList
   },
   setup () {
-    const store = useStore<GlobalDataProps>()
+    const store = useStore<DataProps>()
     const total = computed(() => store.state.columns.total)
     const currentPage = computed(() => store.state.columns.currentPage)
     onMounted(() => {
@@ -58,6 +57,12 @@ export default defineComponent({
 
 <style scoped>
 .btn-outline-primary {
-  margin-left: 37.8%;
+  /*margin-left: 37.8%;*/
 }
+.btn-primary {
+  width: 50%;
+}
+/*.home-page {*/
+/*  height: 100vh;*/
+/*}*/
 </style>

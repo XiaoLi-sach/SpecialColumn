@@ -1,3 +1,4 @@
+// 文章具体信息
 <template>
   <div class="post-detail-page">
     <modal title="删除文章" :visible="modalIsVisible"
@@ -33,7 +34,7 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from 'vue'
 import MarkdownIt from 'markdown-it'
-import { GlobalDataProps, PostProps, ImageProps, UserProps, ResponseType } from '@/store'
+import { DataProps, ImageProps, PostProps, ResponseType, UserProps } from '@/store'
 import UserProfile from '@/components/UserProfile.vue'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
@@ -47,7 +48,7 @@ export default defineComponent({
     modal
   },
   setup () {
-    const store = useStore<GlobalDataProps>()
+    const store = useStore<DataProps>()
     const route = useRoute()
     const router = useRouter()
     const modalIsVisible = ref(false)

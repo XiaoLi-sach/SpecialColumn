@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <global-header :user="currentUser"></global-header>
+    <Header :user="currentUser"></Header>
     <loader v-if="isLoading"></loader>
     <router-view></router-view>
-    <footer class="text-center py-4 text-secondary bg-light mt-6">
+    <footer class="text-center py-4 text-secondary bg-light mt-6 ">
       <small>
         <ul class="list-inline mb-0">
           <li class="list-inline-item">© 2020 鱼香肉丝专栏</li>
@@ -18,25 +18,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, watch } from 'vue'
+import { computed, defineComponent, watch } from 'vue'
 import { useStore } from 'vuex'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import GlobalHeader from './components/GlobalHeader.vue'
+import Header from './components/Header.vue'
 import Loader from './components/Loader.vue'
-import { GlobalDataProps } from './store'
+import { DataProps } from './store'
 import createMessage from '@/components/createMessage'
 
 export default defineComponent({
   name: 'App',
   components: {
-    GlobalHeader,
+    Header,
     Loader
   },
   setup () {
-    const store = useStore<GlobalDataProps>()
+    const store = useStore<DataProps>()
     const currentUser = computed(() => store.state.user)
     const isLoading = computed(() => store.state.loading)
     const error = computed(() => store.state.error)
+    //
     watch(() => error.value.status, () => {
       const { status, message } = error.value
       if (status && message) {
@@ -53,5 +54,7 @@ export default defineComponent({
 </script>
 
 <style>
-
+.container {
+  height: 109vh;
+}
 </style>

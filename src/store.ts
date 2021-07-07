@@ -1,6 +1,7 @@
-import { createStore, Commit } from 'vuex'
+import { Commit, createStore } from 'vuex'
 import axios, { AxiosRequestConfig } from 'axios'
 import { arrToObj, objToArr } from './helper'
+
 export interface ResponseType<P = {}> {
   code: number;
   msg: string;
@@ -41,15 +42,15 @@ export interface PostProps {
 interface ListProps<P> {
   [id: string]: P;
 }
-export interface GlobalErrorProps {
+export interface ErrorProps {
   status: boolean;
   message?: string;
 }
-export interface GlobalDataProps {
+export interface DataProps {
   token: string;
-  error: GlobalErrorProps;
+  error: ErrorProps;
   loading: boolean;
-  columns: { data: ListProps<ColumnProps>; currentPage: number; total: number };
+  columns: { data: ListProps<ColumnProps>; currentPage: number; total: number }; // total: 列表所有条目个数
   posts: { data: ListProps<PostProps>; loadedColumns: string[] };
   user: UserProps;
 }
@@ -63,7 +64,8 @@ const asyncAndCommit = async (url: string, mutationName: string,
   }
   return data
 }
-const store = createStore<GlobalDataProps>({
+
+const store = createStore<DataProps>({
   state: {
     token: localStorage.getItem('token') || '',
     error: { status: false },
@@ -72,7 +74,7 @@ const store = createStore<GlobalDataProps>({
     posts: { data: {}, loadedColumns: [] },
     user: { isLogin: false }
   },
-  mutations: {
+  mutations: { // 同步请求
     createPost (state, newPost) {
       state.posts.data[newPost._id] = newPost
     },
@@ -107,7 +109,7 @@ const store = createStore<GlobalDataProps>({
     setLoading (state, status) {
       state.loading = status
     },
-    setError (state, e: GlobalErrorProps) {
+    setError (state, e: ErrorProps) {
       state.error = e
     },
     fetchCurrentUser (state, rawData) {
@@ -129,7 +131,7 @@ const store = createStore<GlobalDataProps>({
       delete axios.defaults.headers.common.Authorization
     }
   },
-  actions: {
+  actions: { // 异步请求 提交的是mutation，而不是直接变更状态
     fetchColumns ({ state, commit }, params = {}) {
       const { currentPage = 1, pageSize = 6 } = params
       if (state.columns.currentPage < currentPage) {

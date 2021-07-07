@@ -1,3 +1,4 @@
+// 编辑
 <template>
   <div class="update-profile-page w-690">
     <ul class="nav nav-tabs my-4">
@@ -43,10 +44,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted, watch } from 'vue'
+import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-import { GlobalDataProps, ResponseType, ImageProps } from '../store'
+import { DataProps, ImageProps, ResponseType } from '../store'
 import Uploader from '../components/Uploader.vue'
 import ValidateInput, { RulesProp } from '../components/ValidateInput.vue'
 import ValidateForm from '../components/ValidateForm.vue'
@@ -61,7 +62,7 @@ export default defineComponent({
     ValidateForm
   },
   setup () {
-    const store = useStore<GlobalDataProps>()
+    const store = useStore<DataProps>()
     const router = useRouter()
     const currentCategory = ref<EditCategory>('init')
 

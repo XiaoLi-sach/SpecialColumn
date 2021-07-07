@@ -1,3 +1,4 @@
+// 头部
 <template>
   <nav class="navbar navbar-dark bg-primary justify-content-between mb-4 px-4">
     <router-link class="navbar-brand" to="/">鱼香肉丝专栏</router-link>
@@ -53,3 +54,7 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+
+</style>

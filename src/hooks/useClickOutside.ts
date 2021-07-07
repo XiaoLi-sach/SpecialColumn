@@ -1,6 +1,7 @@
-import { ref, onMounted, onUnmounted, Ref } from 'vue'
+import { onMounted, onUnmounted, ref, Ref } from 'vue'
 
 const useClickOutside = (elementRef: Ref<null | HTMLElement>) => {
+  // 是否点击到外边
   const isClickOutside = ref(false)
   const handler = (e: MouseEvent) => {
     if (elementRef.value) {

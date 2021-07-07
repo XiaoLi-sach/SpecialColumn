@@ -8,6 +8,7 @@ import CreatePost from './views/CreatePost.vue'
 import PostDetail from './views/PostDetail.vue'
 import EditProfile from './views/EditProfile.vue'
 import store from './store'
+
 const routerHistory = createWebHistory()
 const router = createRouter({
   history: routerHistory,
