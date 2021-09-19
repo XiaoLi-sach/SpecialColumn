@@ -13,6 +13,7 @@
     </div>
   </div>
 </template>
+
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
 import { ColumnProps } from '@/store'
