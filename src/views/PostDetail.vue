@@ -7,17 +7,17 @@
     >
       <p>确定要删除这篇文章吗？</p>
     </modal>
-    <article class="w-75 mx-auto mb-5 pb-3" v-if="currentPost">
-      <img :src="currentImageUrl" alt="currentPost.title" class="rounded-lg img-fluid my-4" v-if="currentImageUrl">
+    <article class="pb-3 mx-auto mb-5 w-75" v-if="currentPost">
+      <img :src="currentImageUrl" alt="currentPost.title" class="my-4 rounded-lg img-fluid" v-if="currentImageUrl">
       <h2 class="mb-4">{{currentPost.title}}</h2>
-      <div class="user-profile-component border-top border-bottom py-3 mb-5 align-items-center row g-0">
+      <div class="py-3 mb-5 user-profile-component border-top border-bottom align-items-center row g-0">
         <div class="col">
           <user-profile :user="currentPost.author" v-if="typeof currentPost.author === 'object'"></user-profile>
         </div>
-        <span class="text-muted col text-right font-italic">发表于：{{currentPost.createdAt}}</span>
+        <span class="text-right text-muted col font-italic">发表于：{{currentPost.createdAt}}</span>
       </div>
       <div v-html="currentHTML"></div>
-      <div v-if="showEditArea" class="btn-group mt-5">
+      <div v-if="showEditArea" class="mt-5 btn-group">
         <router-link
           type="button"
           class="btn btn-success"
@@ -33,12 +33,12 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from 'vue'
-import MarkdownIt from 'markdown-it'
-import { DataProps, ImageProps, PostProps, ResponseType, UserProps } from '@/store'
-import UserProfile from '@/components/UserProfile.vue'
-import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import { DataProps, ImageProps, PostProps, ResponseType, UserProps } from '@/store'
 import modal from '@/components/Modal.vue'
+import MarkdownIt from 'markdown-it'
+import UserProfile from '@/components/UserProfile.vue'
 import createMessage from '@/components/createMessage'
 
 export default defineComponent({

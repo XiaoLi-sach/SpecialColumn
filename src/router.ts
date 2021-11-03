@@ -54,6 +54,7 @@ const router = createRouter({
     }
   ]
 })
+// 判断是否登录
 router.beforeEach((to, from, next) => {
   const { user, token } = store.state
   const { requiredLogin, redirectAlreadyLogin } = to.meta
